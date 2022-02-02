@@ -1,7 +1,10 @@
+using HotelListing.Configurations;
+using HotelListing.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -28,6 +31,7 @@ namespace HotelListing
         {
 
             services.AddControllers();
+
             //this is for allowing to use API for 3rd party
             services.AddCors(o =>
             {
@@ -36,6 +40,12 @@ namespace HotelListing
                     .AllowAnyMethod()
                     .AllowAnyHeader());
             });
+
+            services.AddDbContext<DatabaseContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("sqlConnection"))
+            );
+
+            services.AddAutoMapper(typeof(MapperInitializer));
 
             services.AddSwaggerGen(c =>
             {
