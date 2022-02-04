@@ -13,7 +13,7 @@ namespace HotelListing.Models
         [Required]
         [StringLength(maximumLength: 50, ErrorMessage ="Country name is too long")]
         public string CountryName { get; set; }
-        [Required]
+        [Required] 
         [StringLength(maximumLength: 3, ErrorMessage = "Short country name is too long")]
         public string ShortName { get; set; } 
     }
