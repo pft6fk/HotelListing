@@ -21,10 +21,19 @@ namespace HotelListing.Models
         
         [Required]
         [Range(1,5)]
-        public double Rating { get; set; }    
-        
-        [Required]
+        public double Rating { get; set; }
+
+        //[Required]
         public int CountryId { get; set; }
+
+    }
+
+    public class UpdateHotedDTO : CreateHotelDTO
+    {
+
+    }
+    public class DeleteHotedDTO : CreateHotelDTO
+    {
 
     }
 }
