@@ -1,3 +1,4 @@
+using AspNetCoreRateLimit;
 using HotelListing.Configurations;
 using HotelListing.Data;
 using HotelListing.IRepository;
@@ -48,6 +49,10 @@ namespace HotelListing
             services.AddDbContext<DatabaseContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("sqlConnection"))
             );
+            services.AddMemoryCache();
+
+            services.ConfigureRateLimiting();
+            services.AddHttpContextAccessor();
 
             services.ConfigureHttpCacheHeaders();
 
@@ -80,7 +85,7 @@ namespace HotelListing
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-        {
+        { 
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -94,7 +99,9 @@ namespace HotelListing
             app.UseHttpsRedirection();
 
             app.UseResponseCaching();
-            app.UseHttpCacheHeaders(); 
+            app.UseHttpCacheHeaders();
+            app.UseIpRateLimiting();
+
             app.UseRouting();
             app.UseAuthentication();
 
