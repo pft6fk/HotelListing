@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 namespace HotelListing.Controllers
 {
     [ApiVersion("2.0")]
-    [Route("api/country")]
+    [Route("api/[controller]")]
     [ApiController]
     public class CountryV2Controller : ControllerBase
     {
@@ -17,7 +17,7 @@ namespace HotelListing.Controllers
         }
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
-         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetCountries()
         {
             return Ok(_context.Countries) ;
