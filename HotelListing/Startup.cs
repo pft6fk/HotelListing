@@ -88,6 +88,8 @@ namespace HotelListing
 
             app.UseAuthorization();
 
+            app.ConfigureExceptionHandler();
+
 
             app.UseEndpoints(endpoints =>
             {
